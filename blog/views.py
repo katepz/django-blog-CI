@@ -93,3 +93,15 @@ def comment_delete(request, slug, comment_id):
         messages.add_message(request, messages.ERROR, 'You can only delete your own comments!')
 
     return HttpResponseRedirect(reverse('post_detail', args=[slug]))    
+
+def test_successful_collaboration_request_submission(self):
+    """Test for a user requesting a collaboration"""
+    post_data = {
+        'name': 'test name',
+        'email': 'test@email.com',
+        'message': 'test message'
+    }
+    response = self.client.post(reverse('about'), post_data)
+    self.assertEqual(response.status_code, 200)
+    self.assertIn(
+        b'Collaboration request received! I endeavour to respond within 2 working days.', response.content)
